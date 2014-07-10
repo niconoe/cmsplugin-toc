@@ -1,0 +1,19 @@
+{% load i18n sekizai_tags %}
+
+<div class="toc gray-border">
+    <p id="toc_title">{% trans "Contents" %}</p>{# Title is not H1 so H1 is still available for real content #}
+    {% if missing_ids %}
+        <p style="color: red;">
+            {% trans "ERROR: One or more h2 entries in the referenced text are missing the id attribute !" %}
+        </p>
+    {% endif %}
+    <ul>
+        {% for t in toc_entries %}
+            <li class="from_h2"><a href="#{{ t.anchor }}">{{ t.text }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% addtoblock "css" %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}toc_plugin/css/toc_plugin.css" media="all" />
+{% endaddtoblock %}
